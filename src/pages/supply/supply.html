@@ -1,0 +1,40 @@
+<!--
+  Generated template for the SupplyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{data?.title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <p>
+    {{profile?.location}}
+  </p>
+  <ion-card padding *ngFor="let item of data?.menu">
+    <p class="recipe-title">
+      {{item?.recipe?.title}}
+    </p>
+    <p>
+      <ion-img [src]="item?.recipe?.image"></ion-img>
+    </p>
+    {{item?.start?.label}}: {{item?.start?.value}}
+    {{item?.end?.label}}: {{item?.end?.value === null ? "Whenever!" : item?.end?.value}}
+  </ion-card>
+  <ion-fab bottom right>
+    <button ion-fab mini>
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
+<ion-footer>
+</ion-footer>
