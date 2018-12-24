@@ -1,19 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the SupplyPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
-  selector: 'page-supply',
-  templateUrl: 'supply.html',
+  selector: 'page-menu-list',
+  templateUrl: 'menu-list.html',
 })
-export class SupplyPage {
+export class MenuListPage {
 
   profile = {
     name: "John Doe",
@@ -67,7 +60,7 @@ export class SupplyPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SupplyPage');
+    console.log('ionViewDidLoad MenuListPage');
     console.log(this.data);
   }
 
