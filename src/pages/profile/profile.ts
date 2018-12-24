@@ -15,6 +15,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
+  user = {
+    name: "Adam Cox",
+    address: "31 Prestwick Cres, North York",
+    email: "adam@adamcox.net",
+    phone: "647-389-2728",
+  }
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
