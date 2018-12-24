@@ -1,3 +1,26 @@
 page-menu-detail {
-
+    .align-right {
+        text-align: right;
+    }
+    ion-footer:before {
+        height: 0px !important;
+    }
+    ion-header:after {
+        height: 0px !important;
+    }
+    /* ion-img {
+        height: 40px;
+        min-width: 220px;
+        background: none;
+    } */
+    .payment-img {
+        margin: 0px 0px 0px 10px;
+        padding: 20px 0px 0px 0px;
+        ion-img {
+            //height: 40px;
+            min-width: 48px;
+            height: 30px;
+            background: none;
+        }
+    }
 }

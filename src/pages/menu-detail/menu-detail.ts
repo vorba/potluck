@@ -15,6 +15,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MenuDetailPage {
 
+  item = {
+    name: "Chili",
+    price: 3,
+  }
+
+  customer = {
+    payment: {
+      source: {
+      type: "VISA",
+      },
+      name: "Adam B. Cox",
+      description: "**** 4242",
+      expiry: "01/22"
+    }
+  }
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
