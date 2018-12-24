@@ -26,13 +26,17 @@ export class RecipeDetailPage {
       {
         name: "green pepper",
         quantity: "1 medium sized",
-      }
+      },
     ],
     instructions: [
       {
         step: 1,
-        description: "",
-      }
+        description: "Heat oil in large sauce pan",
+      },
+      {
+        step: 2,
+        description: "Chop green pepper",
+      },
     ]
   }
 

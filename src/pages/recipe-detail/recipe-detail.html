@@ -3,24 +3,29 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Recipe Detail</ion-title>
+    <ion-title>{{recipe?.name}} Recipe</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
   <ion-card>
-    <ion-card-header>
+    <!-- <ion-card-header>
       <h1>{{recipe?.name}}</h1>
+    </ion-card-header>
+    <hr/> -->
+    <ion-card-content>
       <ion-fab top right>
         <button ion-fab mini>
           <ion-icon name="create"></ion-icon>
         </button>
       </ion-fab>
-    </ion-card-header>
-    <hr/>
-    <ion-card-content>
       <ion-row *ngFor="let item of recipe?.ingredients">
         {{item?.quantity}}
         {{item?.name}}
+      </ion-row>
+      <hr/>
+      <ion-row *ngFor="let item of recipe?.instructions">
+        {{item?.step}}.
+        {{item?.description}}
       </ion-row>
     </ion-card-content>
   </ion-card>
