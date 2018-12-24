@@ -29,9 +29,32 @@ export class MenuListPage {
     {
       id: 1,
       name: "Chili",
-      price: "3",
+      review: 4,
+      price: 3,
       description: "",
       image: "https://pngimage.net/wp-content/uploads/2018/05/bowl-of-chili-png.png",
+      sold: 3,
+      available: 1,
+    },
+    {
+      id: 1,
+      name: "Chili",
+      review: 3,
+      price: 3,
+      description: "",
+      image: "https://pngimage.net/wp-content/uploads/2018/05/bowl-of-chili-png.png",
+      sold: 3,
+      available: 1,
+    },
+    {
+      id: 1,
+      name: "Chili",
+      review: 4,
+      price: 3,
+      description: "",
+      image: "https://pngimage.net/wp-content/uploads/2018/05/bowl-of-chili-png.png",
+      sold: 3,
+      available: 1,
     },
   ];
 
@@ -43,4 +66,7 @@ export class MenuListPage {
     console.log(this.list);
   }
 
+  navPush(item:any) {
+    this.navCtrl.push("MenuDetailPage");
+  }
 }

@@ -7,17 +7,33 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-card padding *ngFor="let item of list">
+  <ion-card padding *ngFor="let item of list" (click)="navPush(item)">
     <ion-row>
       <ion-col>
         <h1>{{item.name}}</h1>
       </ion-col>
       <ion-col>
-        <h1 class="price">{{item.price | currency}}</h1>
+        <h1 class="align-right">{{item.price | currency}}</h1>
       </ion-col>
     </ion-row>
     <ion-row justify-content-center>
       <ion-img [src]="item.image"></ion-img>
+    </ion-row>
+    <ion-row justify-content-center>
+      <rating
+        [(ngModel)]="item.review"
+        readonly="false"
+        small="false"
+        (ngModelChange)="onModelChange($event)">
+      </rating>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h2>{{item.available}} of {{item.sold}} left</h2>
+      </ion-col>
+      <ion-col>
+          <h2 class="align-right">3 miles away</h2>
+      </ion-col>
     </ion-row>
   </ion-card>
   <ion-fab bottom right>
