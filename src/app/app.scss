@@ -31,3 +31,11 @@ button.profile {
         min-width: 30px;
     }
 }
+
+ion-navbar {
+    .toolbar-title-md {
+    //ion-title {
+        padding-left: 0px !important;
+    //}
+    }
+}
