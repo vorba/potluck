@@ -1,28 +1,24 @@
 <ion-header>
-
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{data?.title}}</ion-title>
+    <ion-title>Menu</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content padding>
-  <p>
-    {{profile?.location}}
-  </p>
-  <ion-card padding *ngFor="let item of data?.menu">
-    <p class="recipe-title">
-      {{item?.recipe?.title}}
-    </p>
-    <p>
-      <ion-img [src]="item?.recipe?.image"></ion-img>
-    </p>
-    {{item?.start?.label}}: {{item?.start?.value}}
-    {{item?.end?.label}}: {{item?.end?.value === null ? "Whenever!" : item?.end?.value}}
+  <ion-card padding *ngFor="let item of list">
+    <ion-row>
+      <ion-col>
+        <h1>{{item.name}}</h1>
+      </ion-col>
+      <ion-col>
+        <h1 class="price">{{item.price | currency}}</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center>
+      <ion-img [src]="item.image"></ion-img>
+    </ion-row>
   </ion-card>
   <ion-fab bottom right>
     <button ion-fab mini>

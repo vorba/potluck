@@ -1,14 +1,10 @@
 page-menu-list {
-
-    .recipe-title {
-        font-size: 1.5em;
-        font-weight: 500;
-    }
-
     ion-img {
         background: transparent;
-        width: 200px;
-        height: 200px;
+        min-height: 200px;
+        min-width: 200px;
     }
-
+    .price {
+        text-align: right;
+    }
 }

@@ -25,43 +25,22 @@ export class MenuListPage {
     ]
   };
 
-  data = {
-    title: "Menu",
-    menu: [
-      {
-        start: {
-          label: "From",
-          value: "Dec 23, 2018",
-        },
-        end: {
-          label: "Thru", 
-          value: null,
-        },
-        serving:
-        {
-          description: "Small bowl (7oz)",
-          available: 3,
-        },
-        recipe: {
-          title: "Chili",
-          image: "https://pngimage.net/wp-content/uploads/2018/05/bowl-of-chili-png.png",
-          ingredients: [
-            {
-              name: "beef",
-              quantity: "1 lbs", // could be measure + quantity
-            }
-          ]
-        }
-      }
-    ]
-  }
+  list = [
+    {
+      id: 1,
+      name: "Chili",
+      price: "3",
+      description: "",
+      image: "https://pngimage.net/wp-content/uploads/2018/05/bowl-of-chili-png.png",
+    },
+  ];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuListPage');
-    console.log(this.data);
+    console.log(this.list);
   }
 
 }
