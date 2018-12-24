@@ -2,20 +2,29 @@ import { Component, ViewChild } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Config, Nav, Platform } from 'ionic-angular';
+import { Config, Nav, Platform, MenuController } from 'ionic-angular';
 
 import { FirstRunPage } from '../pages';
 import { Settings } from '../providers';
 
 @Component({
   template: `<ion-menu [content]="content">
-    <ion-header>
+    <!-- <ion-header>
       <ion-toolbar>
-        <ion-title>Pages</ion-title>
+        <ion-title>
+          <button ion-button (click)="navPush('ProfilePage')">
+            <ion-img [src]="user.image"></ion-img>
+            {{user.name}}
+          </button>
+        </ion-title>
       </ion-toolbar>
-    </ion-header>
-
+    </ion-header> -->
     <ion-content>
+      <button class="profile" ion-button clear (click)="navPush('ProfilePage')">
+        <ion-img [src]="user.image"></ion-img>
+        {{user.name}}
+      </button>
+      <hr>
       <ion-list>
         <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
           {{p.title}}
@@ -47,7 +56,20 @@ export class MyApp {
     { title: 'Search', component: 'SearchPage' } */
   ]
 
-  constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  user = {
+    name: "Adam Cox",
+    image: "http://icons.iconarchive.com/icons/diversity-avatars/avatars/48/batman-icon.png"
+  }
+
+  constructor(
+    private translate: TranslateService,
+    platform: Platform,
+    settings: Settings,
+    private config: Config,
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen,
+    private menuCtrl: MenuController,
+    ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -87,5 +109,10 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  navPush(pageName:string) {
+    this.nav.push(pageName);
+    this.menuCtrl.close();
   }
 }
