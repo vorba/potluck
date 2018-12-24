@@ -5,14 +5,27 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>recipe-list</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Recipes</ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content padding>
-
+  <ion-card padding *ngFor="let item of list" (click)="navPush(item)">
+    <ion-row>
+      <ion-col>
+        <h1>{{item.name}}</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center>
+      <ion-img [src]="item.image"></ion-img>
+    </ion-row>
+  </ion-card>
+  <ion-fab bottom right>
+    <button ion-fab mini>
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

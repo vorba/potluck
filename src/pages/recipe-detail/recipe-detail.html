@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Recipe Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <h1>{{recipe?.name}}</h1>
+      <ion-fab top right>
+        <button ion-fab mini>
+          <ion-icon name="create"></ion-icon>
+        </button>
+      </ion-fab>
+    </ion-card-header>
+    <hr/>
+    <ion-card-content>
+      <ion-row *ngFor="let item of recipe?.ingredients">
+        {{item?.quantity}}
+        {{item?.name}}
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
