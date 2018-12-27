@@ -16,9 +16,9 @@
 // automatically applied to the <body> element in the app.
 
 
-button.profile {
+.profile {
     //height: 100px;
-    margin-top: 15px;
+    margin-top: 10px;
     ion-img {
         background: transparent;
         img {
@@ -29,6 +29,12 @@ button.profile {
         border: 1px solid;
         min-height: 30px;
         min-width: 30px;
+    }
+    ion-icon {
+        /* border-radius: 50%;
+        border: 1px solid;
+        padding: 3px; */
+        font-size: 1.5em;
     }
 }
 

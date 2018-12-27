@@ -2,18 +2,34 @@
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
+    </button><!-- 
+    <ion-title>
+      
+    </ion-title> -->
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="Search Meals">
+      
+    </ion-searchbar>
+    <button ion-button class="more" (click)="showSearchFiltersModal()">
+      <ion-icon name="more"></ion-icon>
     </button>
-    <ion-title>Menu</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
-  <ion-card padding *ngFor="let item of list" (click)="navPush(item)">
+<ion-content>
+    <ion-card padding *ngFor="let item of list" (click)="navPush(item)">
     <ion-row>
       <ion-col>
         <h1>{{item.name}}</h1>
       </ion-col>
       <ion-col>
         <h1 class="align-right">{{item.price | currency}}</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h3>by {{item.cook.name}}</h3>
+      </ion-col>
+      <ion-col>
+        <h3 class="align-right">per {{item.serving}} serving</h3>
       </ion-col>
     </ion-row>
     <ion-row justify-content-center>

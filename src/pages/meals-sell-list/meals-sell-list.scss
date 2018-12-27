@@ -1,4 +1,4 @@
-page-menu-list {
+page-meals-sell-list {
     ion-img {
         background: transparent;
         min-height: 200px;
@@ -29,5 +29,18 @@ page-menu-list {
         background-color: rgba(0,0,0,0.5); /* Black background with opacity */
         z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
         cursor: pointer; /* Add a pointer on hover */
+    }
+
+    ion-navbar {
+        .toolbar-content {  // brings "more" button to end of search bar
+            display: flex;
+        }
+    }
+    button.more {
+        color: #424242;
+        background-color: transparent;
+        font-size: 1.5em;
+        box-shadow: none;
+        padding: 0px 15px !important;
     }
 }

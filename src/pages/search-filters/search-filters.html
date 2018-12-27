@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-title>
+    <ion-row align-items-center>
+      <ion-col>
+        Search Filters
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button clear (click)="close()" color="dark">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-title>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+
+    <ion-row>
+      <ion-col>
+        <ion-label text-left>
+          Distance within {{distance}} kms
+        </ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label text-right>
+          <!-- {{distance}} kms -->
+        </ion-label>        
+      </ion-col>
+    </ion-row>
+    <ion-item>
+      <ion-range min="1" max="5" step="1" snaps="true" [(ngModel)]="distance" color="secondary">
+        <ion-label range-left>1</ion-label>
+        <ion-label range-right>5</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <ion-label text-left>
+          Priced between {{price.lower}} and {{price.upper}} dollars
+        </ion-label>
+      </ion-col>
+      <ion-col>
+        <ion-label text-right>
+          
+        </ion-label>        
+      </ion-col>
+    </ion-row>
+    <ion-item>
+      <ion-range min="1" max="5" step="1" snaps="true" [(ngModel)]="price" color="secondary" dualKnobs="true" (ionChange)="onPriceRangeChange($event)">
+        <ion-label range-left>1</ion-label>
+        <ion-label range-right>5</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-row>
+        <ion-col>
+          <ion-label>
+            Priority given to
+          </ion-label>
+        </ion-col>
+        <ion-col>
+          <ion-label text-right>
+            
+          </ion-label>        
+        </ion-col>
+      </ion-row>
+    <ion-item>
+      <!-- <ion-label>Priority</ion-label> -->
+      <ion-select [(ngModel)]="priority">
+        <ion-option value="r">Rating*</ion-option>
+        <ion-option value="d">Distance</ion-option>
+        <ion-option value="p">Price</ion-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+
+  *Ratings below 3 stars are filtered.
+</ion-content>

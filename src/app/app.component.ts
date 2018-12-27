@@ -20,10 +20,20 @@ import { Settings } from '../providers';
       </ion-toolbar>
     </ion-header> -->
     <ion-content>
-      <button class="profile" ion-button clear (click)="navPush('ProfilePage')">
-        <ion-img [src]="user.image"></ion-img>
-        {{user.name}}
-      </button>
+      <ion-row class="profile">
+        <ion-col>
+          <button ion-button clear (click)="navPush('ProfilePage')">
+            <ion-img [src]="user.image"></ion-img>
+            {{user.name}}
+          </button>
+        </ion-col>
+        <ion-col col-3>
+          <button ion-button clear (click)="navPush('ProfilePage')">
+            <ion-icon name="settings">
+            </ion-icon>        
+          </button>
+        </ion-col>
+      </ion-row>
       <hr>
       <ion-list>
         <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
@@ -41,8 +51,9 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
+    { title: 'Meals', component: 'MealsTabsPage' },
     { title: 'Recipes', component: 'RecipeListPage' },
-    { title: 'Menu', component: 'MenuListPage' },
+    //{ title: 'Menu', component: 'MenuListPage' },
     /* { title: 'Tutorial', component: 'TutorialPage' },
     { title: 'Welcome', component: 'WelcomePage' },
     { title: 'Tabs', component: 'TabsPage' },

@@ -9,3 +9,8 @@ export const MainPage = 'TabsPage';
 export const Tab1Root = 'ListMasterPage';
 export const Tab2Root = 'SearchPage';
 export const Tab3Root = 'SettingsPage';
+
+// The initial root pages for our tabs (remove if not using tabs)
+export const MealsTabs_Buy = 'MealsBuyListPage';
+export const MealsTabs_Sell = 'MealsSellListPage';
+export const MealsTabs_History = 'MealsHistoryListPage';
