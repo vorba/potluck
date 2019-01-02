@@ -1,8 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 declare var google;
+var map;
 
 @IonicPage()
 @Component({
@@ -27,19 +28,23 @@ export class MenuDetailPage {
     }
   }
 
-  @ViewChild('map') map: ElementRef;
+  @ViewChild('map') mapElement: ElementRef;
+  map: any = null;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private geolocation: Geolocation,
+    private platform: Platform,
     ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MenuDetailPage');
 
-    this.loadMap();
+    this.platform.ready().then(() => {
+      this.loadMap();
+    });
   }
  
   loadMap() {
@@ -48,38 +53,119 @@ export class MenuDetailPage {
 
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-      let address = "31 Prestwick Cres, North York ON"; // document.getElementById('address').value;
-      latLng = this.codeAddress(address);
-  
       let mapOptions = {
         center: latLng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        
       }
   
-      this.map = new google.maps.Map(this.map.nativeElement, mapOptions);
+      map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-      let marker = new google.maps.Marker({
+      console.log(this.map);
+
+      //let address = "31 Prestwick Cres, North York ON"; // document.getElementById('address').value;
+      let addresses = [
+        "42 Dexter Blvd, North York ON",
+        "21 Prestwick Cres, North York ON",
+        "17 GThreadneedle Cres, North York ON",
+        "75 Credsthaven Dr, North York ON",
+        '66 Clansman Blvd, North York ON'
+      ]; // document.getElementById('address').value;
+      this.codeAddresses(addresses);
+  
+      /* let marker = new google.maps.Marker({
         position: latLng,
-        map: this.map,
+        map: map,
         title: "test",
-      });
+      }); */
 
     }, (err) => {
       console.log(err);
     });
   }
 
- codeAddress(address:string) {
-    let geocoder = new google.geocoder();
-    geocoder.geocode( { 'address': address}, function(results, status) {
+  codeAddresses(addresses:string[]) {
+    let geocoder = new google.maps.Geocoder();
+    let i: number = 1;
+    addresses.forEach(address => {
+      this.codeAddress(address, geocoder, i.toString());
+      i++
+    });
+  }
+
+  codeAddress(address:string, geocoder:any = null, index: string) {
+
+    var goldStar = {
+      path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+      fillColor: 'yellow',
+      fillOpacity: 0.8,
+      scale: .1,
+      strokeColor: 'gold',
+      strokeWeight: 1
+    };
+    var dining = {
+      path:
+        //'M190.372,29.813c-88.673,0-160.546,71.873-160.546,160.547c0,63.891,37.418,118.894,91.445,144.734l5.025-97.098    c0,0-9.452-3.102-11.521-4.112c-20.048-8.831-34.612-34.833-34.612-68.58c0-36.825,28.559-68.544,56.17-68.806    c0.035,0,0.035,0,0.058,0c0.012,0,0.035,0,0.046,0c27.617,0.261,56.177,31.98,56.177,68.806c0,33.747-14.582,59.738-34.589,68.58    c-0.157,0.069-11.613,4.229-11.613,4.229l5.612,107.961c12.315,3.031,25.119,4.81,38.37,4.81c17.87,0,34.984-3.044,51.041-8.424    l4.973-96.214c-13.105-2.882-24.283-11.225-31.289-21.692c-8.679-13.001,6.681-128.067,6.681-128.067h9.992v107.978h9.923V96.499    h10.852v107.99h9.876V96.499h11.259v107.99h9.91V96.499h7.668c0,0,15.36,115.066,6.67,128.067    c-6.937,10.364-18.01,18.683-30.952,21.634c-0.232,0.082-0.442,0.162-0.442,0.162l4.322,82.761    c47.823-27.804,80.053-79.46,80.053-138.762C350.907,101.687,279.034,29.813,190.372,29.813z',
+        /* 'M190.372,29.813c-88.673,0-160.546,71.873-160.546,160.547c0,63.891,37.418,118.894,91.445,144.734l5.025-97.098'
+			  + 'c0,0-9.452-3.102-11.521-4.112c-20.048-8.831-34.612-34.833-34.612-68.58c0-36.825,28.559-68.544,56.17-68.806'
+			  + 'c0.035,0,0.035,0,0.058,0c0.012,0,0.035,0,0.046,0c27.617,0.261,56.177,31.98,56.177,68.806c0,33.747-14.582,59.738-34.589,68.58'
+			  + 'c-0.157,0.069-11.613,4.229-11.613,4.229l5.612,107.961c12.315,3.031,25.119,4.81,38.37,4.81c17.87,0,34.984-3.044,51.041-8.424'
+			  + 'l4.973-96.214c-13.105-2.882-24.283-11.225-31.289-21.692c-8.679-13.001,6.681-128.067,6.681-128.067h9.992v107.978h9.923V96.499'
+			  + 'h10.852v107.99h9.876V96.499h11.259v107.99h9.91V96.499h7.668c0,0,15.36,115.066,6.67,128.067'
+			  + 'c-6.937,10.364-18.01,18.683-30.952,21.634c-0.232,0.082-0.442,0.162-0.442,0.162l4.322,82.761'
+        + 'c47.823-27.804,80.053-79.46,80.053-138.762C350.907,101.687,279.034,29.813,190.372,29.813' */
+        /* 'M339.904,161.776l-5.136-16.904c-6.524-19.202-27.379-29.479-46.581-22.955c-10.802,3.67-19.285,12.153-22.955,22.955'
+			  + 'l-5.136,16.904c-4.322,14.256-5.229,29.329-2.648,44c2.354,12.352,10.196,22.964,21.312,28.84L273.008,363.2'
+			  + 'c-0.77,7.177,1.558,14.342,6.4,19.696c10.413,11.39,28.089,12.182,39.479,1.769c0.616-0.563,1.206-1.153,1.769-1.769'
+			  + 'c4.734-5.202,7.058-12.157,6.4-19.16L321.272,234.6c11.101-5.879,18.93-16.484,21.28-28.824'
+			  + 'C345.133,191.105,344.226,176.032,339.904,161.776z M326.792,202.992c-1.732,8.874-8.056,16.155-16.6,19.112'
+			  + 'c-3.243,1.219-5.332,4.387-5.176,7.848L311.096,365c0.28,2.649-0.594,5.29-2.4,7.248c-4.817,4.769-12.575,4.769-17.392,0'
+			  + 'c-1.896-2.116-2.757-4.964-2.352-7.776l6.032-134.52c0.156-3.461-1.933-6.629-5.176-7.848c-8.544-2.957-14.868-10.238-16.6-19.112'
+			  + 'c-2.14-12.18-1.386-24.693,2.2-36.528l5.136-16.912c3.974-10.745,15.906-16.234,26.652-12.26c5.681,2.101,10.159,6.58,12.26,12.26'
+        + 'l5.136,16.912C328.174,178.3,328.928,190.812,326.792,202.992z' */
+        'M498.682,435.326L297.917,234.56L63.357,0H45.026l-3.743,9.511c-9.879,25.104-14.1,50.78-12.205,74.249'
+        + 'c2.16,26.752,12.323,49.913,29.392,66.982L241.58,333.852l24.152-24.152l169.285,189.293c16.84,16.84,45.825,17.84,63.665,0'
+        + 'C516.236,481.439,516.236,452.879,498.682,435.326'
+        + 'M156.728,291.442L13.317,434.853c-17.552,17.552-17.552,46.113,0,63.665c16.674,16.674,45.519,18.146,63.665,0'
+        + 'l143.412-143.412L156.728,291.442'
+        + 'M490.253,85.249l-81.351,81.35l-21.223-21.222l81.351-81.351l-21.222-21.222l-81.35,81.35l-21.222-21.222l81.351-81.35'
+        + 'L405.366,0.361L299.256,106.471c-12.981,12.981-20.732,30.217-21.828,48.535c-0.277,4.641-1.329,9.206-3.074,13.548l68.929,68.929'
+        + 'c4.342-1.747,8.908-2.798,13.548-3.075c18.318-1.093,35.554-8.846,48.535-21.827l106.11-106.109L490.253,85.249z'
+        /* + 'M103.662,148.98c0.575-2.341,1.348-4.566,1.383-4.606c0.25-0.877-0.215-1.772-1.168-2.341'
+        + 'c-0.906-0.488-2.01-0.238-2.521,0.546c0,0-1.098,1.749-2.69,4.334c-1.295,2.225-3.212,5.78-4.52,10.207'
+        + 'c-1.133,3.88-2.486,9.039-3.096,14.813c-0.261,3.033-0.32,5.769-0.227,8.586c0.227,3.212,0.714,5.96,1.644,9.103'
+        + 'c3.154,8.964,5.583,17.644,14.349,26.206c2.771,2.847,5.618,4.787,7.674,6.216l0.726,0.511c0.442,0.291,0.866,0.559,1.284,0.803'
+        + 'c1.726,0.906,2.881,1.231,3.091,1.277c0.859,0.232,1.743-0.186,2.108-0.883c0.343-0.732,0.093-1.65-0.621-2.23'
+        + 'c0,0-1-0.871-2.283-2.498c-0.877-0.988-1.83-2.417-2.939-4.031c-0.784-1.139-1.708-2.429-2.568-3.684'
+        + 'c-4.27-6.518-6.732-15.615-10.137-24.934c-0.668-2.022-1.214-4.642-1.418-6.867c-0.272-2.568-0.4-5.042-0.4-7.337'
+        + 'c-0.099-5.333,0.139-9.911,0.604-13.623C102.471,154.36,102.889,151.217,103.662,148.98'
+        + 'M190.372,0C85.415,0,0,85.397,0,190.36C0,295.3,85.415,380.721,190.372,380.721c104.952,0,190.35-85.421,190.35-190.361'
+        + 'C380.721,85.397,295.324,0,190.372,0z M190.372,366.523c-97.144,0-176.18-79.03-176.18-176.163'
+        + 'c0-97.144,79.036-176.18,176.18-176.18c97.133,0,176.175,79.036,176.175,176.18C366.546,287.493,287.504,366.523,190.372,366.523' */,
+      fillColor: 'black',
+      fillOpacity: 1,
+      scale: .04,
+      strokeColor: 'black',
+      strokeWeight: 0
+    };
+
+    let coder = geocoder || new google.maps.Geocoder();
+    coder.geocode( { 'address': address}, function(results, status) {
       if (status == 'OK') {
-        this.map.setCenter(results[0].geometry.location);
+        map.setCenter(results[0].geometry.location);
         var marker = new google.maps.Marker({
-            map: this.map,
-            position: results[0].geometry.location
+            map: map,
+            position: results[0].geometry.location,
+            //icon: dining,
+            label: index,
         });
+        /* var circle = new google.maps.Circle({
+          map: map,
+          radius: 1000,    // 500 in metres (5 kilometer)
+          fillColor: '#ffb86b',
+          strokeWeight: 0,
+        });
+        circle.bindTo('center', marker, 'position'); */
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
