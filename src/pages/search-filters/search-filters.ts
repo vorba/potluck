@@ -10,6 +10,9 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 
 const minUpper = 2;
 const maxLower = 4;
+const maxDistinceMeters = 1000;
+const minDistanceMeters = 100;
+const distanceStepMeters = 100;
 
 @IonicPage()
 @Component({
@@ -18,7 +21,10 @@ const maxLower = 4;
 })
 export class SearchFiltersPage {
 
-  distance: number = 5;
+  distanceMax: number = maxDistinceMeters;
+  distanceStep: number = distanceStepMeters;
+  distanceMin: number = minDistanceMeters;
+  distance: number = maxDistinceMeters;
   price: any = { lower: 1, upper: 5 };
   priority: any = "r";
   lastLower: number = this.price.lower;
@@ -39,7 +45,7 @@ export class SearchFiltersPage {
     this.viewCtrl.dismiss();
   }
 
-  onPriceRangeChange(e:any) {
+  onPriceRangeChange() {
     if (this.price.upper < minUpper) this.price.upper = minUpper;
     if (this.price.lower > maxLower) this.price.lower = maxLower;
     if (this.lastLower < this.price.lower) {
@@ -49,6 +55,5 @@ export class SearchFiltersPage {
     }
     this.lastLower = this.price.lower;
     this.lastUpper = this.price.upper;
-    console.log(e);
   }
 }
